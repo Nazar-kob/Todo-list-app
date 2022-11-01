@@ -46,7 +46,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1 className="todo-title">Todo list</h1>
+      <h1 className="todo-title">Todo app</h1>
       <TodoForm addTodo={addTodoHandler} />
       {todoList.length > 0 && (
         <TodoActions
