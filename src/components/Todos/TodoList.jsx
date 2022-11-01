@@ -2,9 +2,16 @@ import React from "react";
 import style from "./TodoList.module.css";
 import Todo from "./Todo";
 
-const TodoList = ({ todoList, deleteTodo }) => {
-  const todoListComponents = todoList.map(({ id, text }) => {
-    return <Todo key={id} textTodo={text} deleteTodo={deleteTodo} id={id} />;
+const TodoList = ({ todoList, deleteTodo, makeIsDoneTodo }) => {
+  const todoListComponents = todoList.map((todo) => {
+    return (
+      <Todo
+        key={todo.id}
+        deleteTodo={deleteTodo}
+        makeIsDoneTodo={makeIsDoneTodo}
+        {...todo}
+      />
+    );
   });
 
   return (

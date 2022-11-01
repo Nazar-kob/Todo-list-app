@@ -1,0 +1,15 @@
+.btn {
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    margin-left: 10px;
+    border: 0;
+    cursor: pointer;
+
+}
+
+
+
+.btn:hover {
+    background-color: burlywood;
+}
