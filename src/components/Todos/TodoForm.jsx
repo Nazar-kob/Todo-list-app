@@ -1,15 +1,19 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 
 import Button from "../UI/Button";
 import style from "./TodoForm.module.css";
+import { actions } from "../../redux/reducers/todoListReduser";
 
-const TodoForm = ({ addTodo }) => {
+const TodoForm = () => {
   const [textTodo, setTextTodo] = useState("");
+  const dsipatcher = useDispatch();
 
   const handlerSubmitBtn = (event) => {
     event.preventDefault();
+
     if (!!textTodo.trim().length) {
-      addTodo(textTodo);
+      dsipatcher(actions.addTodo(textTodo));
       setTextTodo("");
     }
   };

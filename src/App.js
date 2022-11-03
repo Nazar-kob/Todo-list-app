@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux'
 import './App.css';
 
 import TodoForm from './components/Todos/TodoForm';
@@ -7,54 +8,18 @@ import TodoActions from './components/Todos/TodoActions';
 
 function App() {
 
-  const [todoList, setTodoList] = useState([])
-  const [countId, setCountId] = useState(1)
+  const todos = useSelector((store) => store.todo);
 
-  const addTodoHandler = (text) => {
-    let newTodo = { id: countId, text: text, isDone: false }
-    setTodoList((curentTodoList) => [...curentTodoList, newTodo])
-    setCountId((c) => c + 1)
-  }
-
-  const deleteTodoHandler = (idx) => {
-    setTodoList(todoList.filter(({ id }) => idx !== id))
-  }
-
-  const refreshTodoListHendler = () => {
-    setTodoList([])
-  }
-
-  const removeAllTodoIsDoneHandler = () => {
-    setTodoList(todoList.filter(({ isDone }) => !isDone))
-  }
-
-  const IsDoneHandler = (id) => {
-    setTodoList(todoList.map((todo) => {
-      if (todo.id === id) {
-        return { ...todo, isDone: !todo.isDone }
-      }
-      return { ...todo }
-    }))
-  }
-
-  const countIsDoneTodosHandler = todoList.filter(({ isDone }) => isDone).length;
-
-
-
-
-
+  const countIsDoneTodosHandler = todos.filter(({ isDone }) => isDone).length;
 
   return (
     <div className="App">
       <h1 className="todo-title">Todo app</h1>
-      <TodoForm addTodo={addTodoHandler} />
-      {todoList.length > 0 && (
-        <TodoActions
-          refreshTodoList={refreshTodoListHendler}
-          removeAllTodoIsDone={removeAllTodoIsDoneHandler}
-          countIsDoneTodos={countIsDoneTodosHandler} />
+      <TodoForm />
+      {todos.length > 0 && (
+        <TodoActions countIsDoneTodos={countIsDoneTodosHandler} />
       )}
-      <TodoList todoList={todoList} deleteTodo={deleteTodoHandler} makeIsDoneTodo={IsDoneHandler} />
+      <TodoList todos={todos} />
       {!!countIsDoneTodosHandler && <h2>You have completed {`${countIsDoneTodosHandler} ${countIsDoneTodosHandler > 1 ? 'todos' : 'todo'}`}</h2>}
     </div>
   );
